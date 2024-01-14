@@ -33,17 +33,49 @@
     const generatedOTP = Math.floor(1000 + Math.random() * 9000);
     document.getElementById('generatedOTP').innerText = generatedOTP;
 
-    function validateOTP() {
-      const enteredOTP = document.getElementById('otp').value;
+    let attempts = 0;
 
-      if (enteredOTP === generatedOTP.toString()) {
-        // correct OTP, redirect to the google.com
-        window.location.href = 'https://www.google.com';
+  function validateOTP() {
+    const enteredOTP = document.getElementById('otp').value;
+
+    if (enteredOTP === generatedOTP.toString()) {
+      // correct OTP
+      window.location.href = 'https://www.google.com';
+    } else {
+      // incorrect OTP
+      attempts++;
+
+      if (attempts >= 3) {
+        let attempts = 0;
+
+  function validateOTP() {
+    const enteredOTP = document.getElementById('otp').value;
+
+    if (enteredOTP === generatedOTP.toString()) {
+      // Valid OTP, redirect to google.com
+      window.location.href = 'https://www.google.com';
+    } else {
+      // Invalid OTP
+      attempts++;
+
+      if (attempts >= 3) {
+        // show 'Validation Failed!'
+        document.getElementById('validationMessage').innerText = 'Validation Failed!';
+        document.getElementById('validateButton').disabled = true;
       } else {
-        // INCORRECT OTP,  show that alert
-        alert('Please enter the correct OTP.');
+        // Show alert for incorrect & multiple attempt
+        alert('Please enter the correct OTP. Attempts left: ' + (3 - attempts));
       }
     }
+  }
+        document.getElementById('validationMessage').innerText = 'Validation Failed!';
+        document.getElementById('validateButton').disabled = true;
+      } else {
+        // Show alert for incorrect attempt
+        alert('Please enter the correct OTP. Attempts left: ' + (3 - attempts));
+      }
+    }
+  }
   </script>
 </body>
 </html>
